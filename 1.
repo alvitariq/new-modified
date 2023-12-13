@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Country Game</title>
+<style>
+  body { font-family: Arial, sans-serif; }
+  .header { background-color: green; padding: 10px; text-align: center; }
+  .header button { margin: 0 5px; }
+  .game-container { padding: 20px; text-align: center; }
+  .country-btn, .quiz-btn { padding: 10px 20px; margin: 5px; }
+  .hidden { display: none; }
+  .country-info, .quiz-section { margin-top: 20px; }
+  .score-display { margin-top: 20px; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <button onclick="showRules()">Rules</button>
+    <button onclick="showMain()">Main</button>
+    <button onclick="quitGame()">Quit</button>
+  </div>
+  <div class="game-container">
+    <h1>Country Game</h1>
+    <p>About the game.</p>
+    <p>Your fun-filled trip to Countries starts here!</p>
+    <p>All you need to do is to read some facts about the country and choose the correct answer from the options. After pressing CHECK every correct answer will be framed green, incorrect - red. You can try quiz as many times as you want.</p>
+    <button class="start-btn" onclick="startGame()">Start</button>
+    <div id="country-selection" class="hidden">
+      <p>To start the game please choose the country you would like to know about.</p>
+      <button class="country-btn" onclick="selectCountry('Nepal')">Nepal</button>
+      <button class="country-btn" onclick="selectCountry('Russia')">Russia</button>
+      <button class="country-btn" onclick="selectCountry('Sri Lanka')">Sri Lanka</button>
+      <button class="country-btn" onclick="selectCountry('Bangladesh')">Bangladesh</button>
+    </div>
+    <div id="country-info" class="country-info hidden">
+      <!-- Country information will be displayed here -->
+    </div>
+    <div id="quiz-section" class="quiz-section hidden">
+      <!-- Quiz will be displayed here -->
+    </div>
+    <div id="score-display" class="score-display hidden">
+      <!-- Score will be displayed here -->
+    </div>
+    <p>PROJECT ASSIGNMENT/PROJECT 2/</p>
+    <p>2023 | Finland</p>
+  </div>
+<script>
+  let totalScore = 0;
+function showRules() {
+  // Implement rules display logic here
+}
+
+function showMain() {
+  // Implement main page display logic here
+}
+
+function quitGame() {
+  // Display the total score
+  const scoreDisplay = document.getElementById('score-display');
+  scoreDisplay.innerHTML = `<p>Thanks for choosing our game.</p><p>You have got: <strong>${totalScore}</strong> points.</p>`;
+  scoreDisplay.classList.remove('hidden');
+  // Hide other game elements as needed
+}
+
+function startGame() {
+  document.querySelector('.start-btn').classList.add('hidden');
+  document.getElementById('country-selection').classList.remove('hidden');
+}
+
+function selectCountry(country) {
+  const countryInfo = document.getElementById('country-info');
+  const countryButtons = document.querySelectorAll('.country-btn')
+  countryInfo.innerHTML = ''; // Clear previous country information
+  if (country === 'Sri Lanka') {
+    countryInfo.innerHTML = `
+      <h2>Let's learn about Sri Lanka.</h2>
+      <p>The capital of Sri Lanka is Colombo.</p>
+      <p>The language is Sinhalese.</p>
+      <p>The currency used there is Sri Lankan rupee.</p>
+      <p>Sri Lanka is famous for its stunning beaches.</p>
+      <p>Your score is 0 points:</p>
+      <button class="quiz-btn" onclick="startQuiz()">Start quiz</button>
+    `;
+  }
+  // Add similar blocks for other countries if needed
+  countryInfo.classList.remove('hidden');
+  countryButtons.forEach(button => {
+    button.disabled = true;
+  });
+}
+
+function startQuiz() {
+  const quizSection = document.getElementById('quiz-section');
+  quizSection.innerHTML = `
+    <h2>Quiz about Sri Lanka</h2>
+    <p>What is the capital of Sri Lanka?</p>
+    <button class="quiz-btn" onclick="checkAnswer('Colombo', this)">Colombo</button>
+    <button class="quiz-btn" onclick="checkAnswer('Kandy', this)">Kandy</button>
+    <button class="quiz-btn" onclick="checkAnswer('Mars', this)">Mars</button>
+    <button class="quiz-btn" onclick="checkAnswer('Paris', this)">Paris</button>
+    <!-- Add more questions here -->
+    <button class="quiz-btn" onclick="tryAgain()">Try again</button>
+  `;
+  quizSection.classList.remove('hidden');
+  document.getElementById('country-info').classList.add('hidden');
+}
+
+function checkAnswer(correctAnswer, btn) {
+   correctAnswer = 'Colombo';
+  // Get all answer buttons
+  const buttons = document.querySelectorAll('.quiz-btn');
+  // Disable all buttons after an answer is selected
+  buttons.forEach(button => button.disabled = true);
+
+  // Check if the selected answer is correct
+  if (btn.textContent === correctAnswer) {
+    // If correct, set the button to green and add points
+    btn.style.backgroundColor = 'green';
+    totalScore += 2; // Each correct answer gives 2 points
+  } else {
+    // If incorrect, set the button to red
+    btn.style.backgroundColor = 'red';
+  }
+}
+function tryAgain() {
+  // Implement try again logic here
+}
+</script>
+</body>
+</html>
